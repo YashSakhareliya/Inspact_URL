@@ -1,6 +1,6 @@
 var validator = require('validator')
 const fs = require('fs')
-let url = 'yashsakhareliya.in'
+let url = process.argv[2]
 
 if(validator.isURL(url)){
     console.log('The URL is valid.')
@@ -17,9 +17,9 @@ if(validator.isURL(url)){
         let block_urls = data.split('\n');
 
         if (block_urls.includes(url)) {
-            console.log('The URL is blocked.');
+            console.log('This URL is blocked.');
 
-            fs.readFile('myjsonfile.json', 'utf8', function readFileCallback(err, fileData) {
+            fs.readFile('url_count.json', 'utf8', function readFileCallback(err, fileData) {
                 if (err) {
                     console.log(err);
                 } else {
@@ -42,7 +42,7 @@ if(validator.isURL(url)){
 
                     
                     let json = JSON.stringify(obj, null, 2); 
-                    fs.writeFile('myjsonfile.json', json, 'utf8', (writeErr) => {
+                    fs.writeFile('url_count.json', json, 'utf8', (writeErr) => {
                         if (writeErr) console.log(writeErr);
                         else console.log('JSON file updated successfully.');
                     });
